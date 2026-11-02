@@ -1,4 +1,6 @@
-<h1 align="center">Python-W · Team Generator</h1>
+This app divides a list of people into randomly chosen teams.
+
+<h1 align="center">Team Generator</h1>
 
 <p align="center"><strong>One participant list. A fresh set of teams.</strong></p>
 <p align="center">A small Python and Flask prototype that shuffles comma-separated names and distributes them across a chosen number of teams.</p>
@@ -12,9 +14,9 @@
 
 ---
 
-Python-W explores a simple form-to-result workflow. Enter participant names, choose a team count and submit the form. The server shuffles the list, then assigns participants in turn so team sizes differ by at most one for a valid positive team count.
+Team Generator explores a simple form-to-result workflow. Enter participant names, choose a team count and submit the form. The server shuffles the list, then assigns participants in turn so team sizes differ by at most one for a valid positive team count.
 
-**This is a minimal prototype.** The interface mixes Turkish and English labels. The source includes the form and result templates at the repository root, which requires the template-path adjustment shown below.
+**This is a minimal prototype.** The interface mixes Turkish and English labels. The form and result templates are stored at the repository root, and the application explicitly loads them from there.
 
 ## Run locally
 
@@ -25,8 +27,8 @@ Python-W explores a simple form-to-result workflow. Enter participant names, cho
 | Web browser | Participant form and team results |
 
 ```text
-git clone https://github.com/ArdaHFO/python-w.git
-cd python-w
+git clone https://github.com/ArdaHFO/team-generator.git
+cd team-generator
 python -m venv .venv
 ```
 
@@ -34,10 +36,10 @@ Activate `.venv\Scripts\activate` in Windows Command Prompt or `source .venv/bin
 
 ```text
 python -m pip install -r requirements.txt
-python -c "import app; app.app.template_folder = '.'; app.app.run(host='127.0.0.1', port=5000, debug=False)"
+python -m flask --app app run --host 127.0.0.1 --port 5000
 ```
 
-Open [localhost:5000](http://127.0.0.1:5000). The preview command points Flask at the existing root-level HTML templates for that process. It does not move or edit source files. A plain `python app.py` launch retains Flask's default `templates/` lookup and will not find the tracked HTML files.
+Open [localhost:5000](http://127.0.0.1:5000). You can also use `python app.py`, which starts one local server with debug mode disabled.
 
 ## Create teams
 
@@ -57,14 +59,12 @@ Each submitted entry is assigned once. With six entries and three teams, each te
 
 ## Validation and current limits
 
-The Python source, templates and dependency file were reviewed. No browser or runtime integration test was performed.
+The source has been reviewed statically. Application execution, automated tests and browser checks were not performed for these changes.
 
-- Root-level templates need the preview override above or a future template-layout correction.
-- Team count has no server-side validation. Zero, negative or nonnumeric input can fail or produce unsuitable output. Use a positive whole number no greater than the participant count.
-- Names are split on commas without trimming, deduplication or removal of empty entries. Enter clean, nonempty values.
-- A person entered twice is treated as two entries. The algorithm balances counts, not skill, role or other participant attributes.
-- The application has overlapping GET routes for the home page. It also contains two consecutive development-server calls in its main entry point.
+- The server rejects invalid team counts, empty participant lists and more teams than participants. Names are trimmed and empty entries are removed.
+- A person entered twice is still treated as two entries. The algorithm balances counts, not skill, role or other participant attributes.
 - No automated test suite, persistent team history or export function is included.
+- The interface remains a minimal local prototype. Static corrections are not evidence of tested browser behavior.
 
 The randomization is intended for informal grouping. The implementation does not provide an auditable draw or seeded reproducibility.
 
@@ -72,7 +72,7 @@ The randomization is intended for informal grouping. The implementation does not
 
 ```text
 app.py            Form processing, shuffle and team assignment
-views.py          Home-page blueprint
+views.py          Alternate /views/ page
 index.html        Participant and team-count form
 teams.html        Jinja results template
 requirements.txt  Pinned Flask environment
@@ -80,11 +80,10 @@ requirements.txt  Pinned Flask environment
 
 ## Development and contributions
 
-Keep the form, input validation and assignment logic easy to follow. Useful changes include normalizing participant names, validating team counts, resolving the template layout and adding deterministic tests for assignment counts.
+Keep the form, input validation and assignment logic easy to follow. Future changes should preserve positive bounded team counts, nonempty entries and balanced assignment. Deterministic tests for those rules would improve confidence.
 
 For a bug report, include the team count and a small set of fictional names. Avoid posting real participant lists.
 
 ## License
 
 No project license file is included in this repository. Do not infer a permissive code license from its public visibility. Flask and other dependencies retain their own licenses.
-

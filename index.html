@@ -5,11 +5,12 @@
 </head>
 <body>
     <h1>Rastgele takım yaratıcı</h1>
-    <form method="POST">
+    {% if error %}<p role="alert">{{ error }}</p>{% endif %}
+    <form method="POST" action="{{ url_for('random_team_generator') }}">
         <label for="members">Yarışmacıların isimlerini girin (her bir yarışmacıyı virgül ile ayırın):</label>
         <input type="text" name="members" required><br>
         <label for="num_teams">Number of Teams:</label>
-        <input type="number" name="num_teams" required><br>
+        <input type="number" name="num_teams" min="1" required><br>
         <input type="submit" value="Generate Teams">
     </form>
 </body>

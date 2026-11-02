@@ -1,4 +1,6 @@
-<h1 align="center">Python-W · Takım Oluşturucu</h1>
+Bu uygulama, bir kişi listesini rastgele takımlara ayırır.
+
+<h1 align="center">Team Generator</h1>
 
 <p align="center"><strong>Tek katılımcı listesi. Yeni takım eşleşmeleri.</strong></p>
 <p align="center">Virgülle ayrılmış isimleri karıştırıp seçilen sayıda takıma dağıtan küçük bir Python ve Flask prototipi.</p>
@@ -12,9 +14,9 @@
 
 ---
 
-Python-W, formdan sonuç ekranına uzanan basit bir akışı örnekler. Katılımcı isimlerini gir, takım sayısını seç ve formu gönder. Sunucu listeyi karıştırır, ardından katılımcıları sırayla takımlara dağıtır. Geçerli pozitif takım sayısı için takım büyüklükleri en fazla bir kişi farklılaşır.
+Team Generator, formdan sonuç ekranına uzanan basit bir akışı örnekler. Katılımcı isimlerini gir, takım sayısını seç ve formu gönder. Sunucu listeyi karıştırır, ardından katılımcıları sırayla takımlara dağıtır. Geçerli pozitif takım sayısı için takım büyüklükleri en fazla bir kişi farklılaşır.
 
-**Bu küçük bir prototiptir.** Arayüzde Türkçe ve İngilizce etiketler birlikte kullanılır. Form ve sonuç şablonları repo kökünde bulunur ve aşağıda gösterilen şablon yolu ayarına ihtiyaç duyar.
+**Bu küçük bir prototiptir.** Arayüzde Türkçe ve İngilizce etiketler birlikte kullanılır. Form ve sonuç şablonları repo kökünde bulunur. Uygulama bunları açıkça bu dizinden yükler.
 
 ## Yerel olarak çalıştır
 
@@ -25,8 +27,8 @@ Python-W, formdan sonuç ekranına uzanan basit bir akışı örnekler. Katılı
 | Web tarayıcısı | Katılımcı formu ve takım sonuçları |
 
 ```text
-git clone https://github.com/ArdaHFO/python-w.git
-cd python-w
+git clone https://github.com/ArdaHFO/team-generator.git
+cd team-generator
 python -m venv .venv
 ```
 
@@ -34,10 +36,10 @@ Windows Komut İstemi'nde `.venv\Scripts\activate`, macOS/Linux'ta `source .venv
 
 ```text
 python -m pip install -r requirements.txt
-python -c "import app; app.app.template_folder = '.'; app.app.run(host='127.0.0.1', port=5000, debug=False)"
+python -m flask --app app run --host 127.0.0.1 --port 5000
 ```
 
-[localhost:5000](http://127.0.0.1:5000) adresini aç. Önizleme komutu, o işlem için Flask'ı mevcut kök dizindeki HTML şablonlarına yönlendirir. Kaynak dosyalarını taşımaz veya değiştirmez. Doğrudan `python app.py` çalıştırmak Flask'ın varsayılan `templates/` aramasını korur ve repodaki HTML dosyalarını bulamaz.
+[localhost:5000](http://127.0.0.1:5000) adresini aç. `python app.py` komutu da debug modu kapalı tek bir yerel sunucu başlatır.
 
 ## Takımları oluştur
 
@@ -57,14 +59,12 @@ Girilen her öğe bir kez atanır. Altı öğe ve üç takım için her takım i
 
 ## Doğrulama ve mevcut sınırlar
 
-Python kaynağı, şablonlar ve bağımlılık dosyası incelendi. Tarayıcı veya çalışma zamanı entegrasyon testi yapılmadı.
+Kaynak statik olarak incelendi. Bu değişiklikler için uygulama, otomatik test veya tarayıcı kontrolü çalıştırılmadı.
 
-- Kök dizindeki şablonlar, yukarıdaki önizleme ayarına veya ileride yapılacak şablon düzeni düzeltmesine ihtiyaç duyar.
-- Takım sayısında sunucu tarafı doğrulama yoktur. Sıfır, negatif veya sayısal olmayan değerler hataya ya da uygun olmayan çıktıya yol açabilir. Katılımcı sayısını aşmayan pozitif bir tam sayı kullan.
-- İsimler boşluklar temizlenmeden, tekrarlar ayıklanmadan veya boş öğeler kaldırılmadan virgülle bölünür. Temiz ve boş olmayan değerler gir.
-- İki kez girilen kişi iki ayrı öğe sayılır. Algoritma yetenek, rol veya başka özellikleri değil, katılımcı sayılarını dengeler.
-- Ana sayfa için çakışan GET rotaları vardır. Ana başlatıcıda art arda iki geliştirme sunucusu çağrısı da bulunur.
+- Sunucu geçersiz takım sayılarını, boş katılımcı listelerini ve katılımcı sayısından fazla takım talebini reddeder. İsimlerin başındaki ve sonundaki boşluklar temizlenir, boş öğeler kaldırılır.
+- İki kez girilen kişi hâlâ iki ayrı öğe sayılır. Algoritma yetenek, rol veya başka özellikleri değil, katılımcı sayılarını dengeler.
 - Otomatik test paketi, kalıcı takım geçmişi veya dışa aktarma işlevi yoktur.
+- Arayüz küçük bir yerel prototip olarak kalır. Statik düzeltmeler tarayıcı davranışının test edildiği anlamına gelmez.
 
 Rastgeleleştirme günlük gruplama içindir. Uygulama denetlenebilir kura veya sabit tohumla tekrarlanabilirlik sağlamaz.
 
@@ -72,7 +72,7 @@ Rastgeleleştirme günlük gruplama içindir. Uygulama denetlenebilir kura veya 
 
 ```text
 app.py            Form işleme, karıştırma ve takım atama
-views.py          Ana sayfa blueprint'i
+views.py          Alternatif /views/ sayfası
 index.html        Katılımcı ve takım sayısı formu
 teams.html        Jinja sonuç şablonu
 requirements.txt  Sabitlenmiş Flask ortamı
@@ -80,11 +80,10 @@ requirements.txt  Sabitlenmiş Flask ortamı
 
 ## Geliştirme ve katkı
 
-Formu, giriş doğrulamasını ve atama mantığını anlaşılır tut. Katılımcı isimlerinin normalleştirilmesi, takım sayısının doğrulanması, şablon düzeninin düzeltilmesi ve atama sayıları için deterministik testler yararlı katkılardır.
+Formu, giriş doğrulamasını ve atama mantığını anlaşılır tut. Yeni değişiklikler pozitif ve sınırlı takım sayısını, boş olmayan öğeleri ve dengeli atamayı korumalıdır. Bu kurallar için deterministik testler güveni artıracaktır.
 
 Hata bildiriminde takım sayısını ve küçük bir kurmaca isim listesini kullan. Gerçek katılımcı listelerini paylaşma.
 
 ## Lisans
 
 Bu repoda proje lisansı dosyası bulunmuyor. Herkese açık olması, kod için serbest kullanım lisansı bulunduğu anlamına gelmez. Flask ve diğer bağımlılıklar kendi lisanslarına tabidir.
-
