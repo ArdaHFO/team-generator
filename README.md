@@ -3,7 +3,7 @@ This app divides a list of people into randomly chosen teams.
 <h1 align="center">Team Generator</h1>
 
 <p align="center"><strong>One participant list. A fresh set of teams.</strong></p>
-<p align="center">A small Python and Flask prototype that shuffles comma-separated names and distributes them across a chosen number of teams.</p>
+<p align="center">A Python and Flask application that shuffles comma-separated names and distributes them across a chosen number of teams.</p>
 
 <p align="center">
   <strong>English</strong> · <a href="README.tr.md">Türkçe</a><br />
@@ -16,7 +16,7 @@ This app divides a list of people into randomly chosen teams.
 
 Team Generator explores a simple form-to-result workflow. Enter participant names, choose a team count and submit the form. The server shuffles the list, then assigns participants in turn so team sizes differ by at most one for a valid positive team count.
 
-**This is a minimal prototype.** The interface mixes Turkish and English labels. The form and result templates are stored at the repository root, and the application explicitly loads them from there.
+**The app focuses on participant entry and team assignment.** The interface mixes Turkish and English labels. The form and result templates are stored at the repository root, and the application explicitly loads them from there.
 
 ## Run locally
 
@@ -64,7 +64,7 @@ The source has been reviewed statically. Application execution, automated tests 
 - The server rejects invalid team counts, empty participant lists and more teams than participants. Names are trimmed and empty entries are removed.
 - A person entered twice is still treated as two entries. The algorithm balances counts, not skill, role or other participant attributes.
 - No automated test suite, persistent team history or export function is included.
-- The interface remains a minimal local prototype. Static corrections are not evidence of tested browser behavior.
+- The interface is designed for local use. Static corrections are not evidence of tested browser behavior.
 
 The randomization is intended for informal grouping. The implementation does not provide an auditable draw or seeded reproducibility.
 

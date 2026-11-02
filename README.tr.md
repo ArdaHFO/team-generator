@@ -3,7 +3,7 @@ Bu uygulama, bir kişi listesini rastgele takımlara ayırır.
 <h1 align="center">Team Generator</h1>
 
 <p align="center"><strong>Tek katılımcı listesi. Yeni takım eşleşmeleri.</strong></p>
-<p align="center">Virgülle ayrılmış isimleri karıştırıp seçilen sayıda takıma dağıtan küçük bir Python ve Flask prototipi.</p>
+<p align="center">Virgülle ayrılmış isimleri karıştırıp seçilen sayıda takıma dağıtan Python ve Flask uygulaması.</p>
 
 <p align="center">
   <a href="README.md">English</a> · <strong>Türkçe</strong><br />
@@ -16,7 +16,7 @@ Bu uygulama, bir kişi listesini rastgele takımlara ayırır.
 
 Team Generator, formdan sonuç ekranına uzanan basit bir akışı örnekler. Katılımcı isimlerini gir, takım sayısını seç ve formu gönder. Sunucu listeyi karıştırır, ardından katılımcıları sırayla takımlara dağıtır. Geçerli pozitif takım sayısı için takım büyüklükleri en fazla bir kişi farklılaşır.
 
-**Bu küçük bir prototiptir.** Arayüzde Türkçe ve İngilizce etiketler birlikte kullanılır. Form ve sonuç şablonları repo kökünde bulunur. Uygulama bunları açıkça bu dizinden yükler.
+**Uygulama, katılımcı girişi ve takım oluşturmaya odaklanır.** Arayüzde Türkçe ve İngilizce etiketler birlikte kullanılır. Form ve sonuç şablonları repo kökünde bulunur. Uygulama bunları açıkça bu dizinden yükler.
 
 ## Yerel olarak çalıştır
 
@@ -64,7 +64,7 @@ Kaynak statik olarak incelendi. Bu değişiklikler için uygulama, otomatik test
 - Sunucu geçersiz takım sayılarını, boş katılımcı listelerini ve katılımcı sayısından fazla takım talebini reddeder. İsimlerin başındaki ve sonundaki boşluklar temizlenir, boş öğeler kaldırılır.
 - İki kez girilen kişi hâlâ iki ayrı öğe sayılır. Algoritma yetenek, rol veya başka özellikleri değil, katılımcı sayılarını dengeler.
 - Otomatik test paketi, kalıcı takım geçmişi veya dışa aktarma işlevi yoktur.
-- Arayüz küçük bir yerel prototip olarak kalır. Statik düzeltmeler tarayıcı davranışının test edildiği anlamına gelmez.
+- Arayüz yerel kullanım için tasarlanmıştır. Statik düzeltmeler tarayıcı davranışının test edildiği anlamına gelmez.
 
 Rastgeleleştirme günlük gruplama içindir. Uygulama denetlenebilir kura veya sabit tohumla tekrarlanabilirlik sağlamaz.
 
