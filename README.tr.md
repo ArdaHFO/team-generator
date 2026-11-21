@@ -1,30 +1,14 @@
-Bu uygulama, bir kişi listesini rastgele takımlara ayırır.
+Bu uygulama, bir isim listesinden kişi sayıları birbirine yakın rastgele takımlar oluşturur.
 
-<h1 align="center">Team Generator</h1>
+# Team Generator
 
-<p align="center"><strong>Tek katılımcı listesi. Yeni takım eşleşmeleri.</strong></p>
-<p align="center">Virgülle ayrılmış isimleri karıştırıp seçilen sayıda takıma dağıtan Python ve Flask uygulaması.</p>
+[English](README.md) · [Türkçe](README.tr.md)
 
-<p align="center">
-  <a href="README.md">English</a> · <strong>Türkçe</strong><br />
-  <a href="#yerel-olarak-çalıştır"><strong>Yerel olarak çalıştır</strong></a> ·
-  <a href="#takımları-oluştur">Takımları oluştur</a> ·
-  <a href="#doğrulama-ve-mevcut-sınırlar">Mevcut sınırlar</a>
-</p>
+İsimleri virgülle ayırarak gir, takım sayısını seç ve formu gönder. Python listeyi karıştırıp isimleri sırayla takımlara dağıtır. Takımların kişi sayıları en fazla bir farklı olur.
 
----
+## Yerel kurulum
 
-Team Generator, formdan sonuç ekranına uzanan basit bir akışı örnekler. Katılımcı isimlerini gir, takım sayısını seç ve formu gönder. Sunucu listeyi karıştırır, ardından katılımcıları sırayla takımlara dağıtır. Geçerli pozitif takım sayısı için takım büyüklükleri en fazla bir kişi farklılaşır.
-
-**Uygulama, katılımcı girişi ve takım oluşturmaya odaklanır.** Arayüzde Türkçe ve İngilizce etiketler birlikte kullanılır. Form ve sonuç şablonları repo kökünde bulunur. Uygulama bunları açıkça bu dizinden yükler.
-
-## Yerel olarak çalıştır
-
-| Gereksinim | Amaç |
-| --- | --- |
-| pip ve venv içeren Python 3 | Geliştirme ortamı |
-| Flask 3.0.0 | Form işleme ve HTML şablonları |
-| Web tarayıcısı | Katılımcı formu ve takım sonuçları |
+pip ve venv içeren Python 3 ile bir web tarayıcısı gerekir.
 
 ```text
 git clone https://github.com/ArdaHFO/team-generator.git
@@ -39,51 +23,23 @@ python -m pip install -r requirements.txt
 python -m flask --app app run --host 127.0.0.1 --port 5000
 ```
 
-[localhost:5000](http://127.0.0.1:5000) adresini aç. `python app.py` komutu da debug modu kapalı tek bir yerel sunucu başlatır.
+[localhost:5000](http://127.0.0.1:5000) adresini aç. `python app.py` komutu da debug modu kapalı yerel sunucuyu başlatır.
 
-## Takımları oluştur
+## Takım oluşturma
 
-1. İsimleri virgülle ayırarak gir. Örneğin `Ada,Deniz,Ece,Mert,Selin,Can`.
-2. Pozitif bir tam sayı olarak takım sayısını yaz. Örneğin `3`.
-3. Eşleşmeleri görmek için **Generate Teams** düğmesine bas.
+Örneğin `Ada, Deniz, Ece, Mert, Selin, Can` isimlerini ve takım sayısı olarak `3` girip **Generate Teams** düğmesine bas. Her takımda iki isim olur. Formu yeniden gönderdiğinde liste tekrar karıştırılır.
 
-Girilen her öğe bir kez atanır. Altı öğe ve üç takım için her takım iki öğe içerir. Formun yeniden gönderilmesi farklı eşleşmeler oluşturabilir.
+- Takım sayısı, katılımcı sayısını aşmayan pozitif bir tam sayı olmalıdır.
+- İsimlerin başındaki ve sonundaki boşluklar temizlenir; boş öğeler atlanır.
+- Tekrarlanan isimler ayrı katılımcı olarak sayılır.
+- Dağıtım yalnız kişi sayısını dengeler. Yetenek, rol veya başka özellikleri dikkate almaz.
 
-## Projede neler var?
+Kayıtlı geçmiş, dışa aktarma veya sabit tohumla tekrarlanabilir kura özelliği yoktur. Arayüzde Türkçe ve İngilizce etiketler birlikte kullanılır. Repoda otomatik test paketi bulunmaz.
 
-- **Kısa form akışı.** Tek sayfa katılımcıları ve istenen takım sayısını toplar.
-- **Rastgele sıralama.** Python'un `random.shuffle` işlevi gönderilen listeyi karıştırır.
-- **Dengeli takım sayıları.** Sıralı dağıtım, karıştırılmış öğeleri takımlara paylaştırır.
-- **Basit sonuç sayfası.** Jinja şablonu her takımı ve katılımcılarını gösterir.
-- **Az sayıda bağımlılık.** Uygulama Flask ve Python standart kütüphanesini kullanır. Veritabanı veya hesap sistemi içermez.
+## Kod
 
-## Doğrulama ve mevcut sınırlar
-
-Kaynak statik olarak incelendi. Bu değişiklikler için uygulama, otomatik test veya tarayıcı kontrolü çalıştırılmadı.
-
-- Sunucu geçersiz takım sayılarını, boş katılımcı listelerini ve katılımcı sayısından fazla takım talebini reddeder. İsimlerin başındaki ve sonundaki boşluklar temizlenir, boş öğeler kaldırılır.
-- İki kez girilen kişi hâlâ iki ayrı öğe sayılır. Algoritma yetenek, rol veya başka özellikleri değil, katılımcı sayılarını dengeler.
-- Otomatik test paketi, kalıcı takım geçmişi veya dışa aktarma işlevi yoktur.
-- Arayüz yerel kullanım için tasarlanmıştır. Statik düzeltmeler tarayıcı davranışının test edildiği anlamına gelmez.
-
-Rastgeleleştirme günlük gruplama içindir. Uygulama denetlenebilir kura veya sabit tohumla tekrarlanabilirlik sağlamaz.
-
-## Proje yapısı
-
-```text
-app.py            Form işleme, karıştırma ve takım atama
-views.py          Alternatif /views/ sayfası
-index.html        Katılımcı ve takım sayısı formu
-teams.html        Jinja sonuç şablonu
-requirements.txt  Sabitlenmiş Flask ortamı
-```
-
-## Geliştirme ve katkı
-
-Formu, giriş doğrulamasını ve atama mantığını anlaşılır tut. Yeni değişiklikler pozitif ve sınırlı takım sayısını, boş olmayan öğeleri ve dengeli atamayı korumalıdır. Bu kurallar için deterministik testler güveni artıracaktır.
-
-Hata bildiriminde takım sayısını ve küçük bir kurmaca isim listesini kullan. Gerçek katılımcı listelerini paylaşma.
+Formu ve takım dağıtımını [app.py](app.py) yönetir. [index.html](index.html) ve [teams.html](teams.html) şablonları repo kökündedir. [views.py](views.py), `/views/` adresinde alternatif giriş sağlar.
 
 ## Lisans
 
-Bu repoda proje lisansı dosyası bulunmuyor. Herkese açık olması, kod için serbest kullanım lisansı bulunduğu anlamına gelmez. Flask ve diğer bağımlılıklar kendi lisanslarına tabidir.
+Projeye ait bir lisans dosyası bulunmuyor. Flask ve diğer bağımlılıklar kendi lisanslarına tabidir.
